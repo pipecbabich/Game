@@ -3,17 +3,18 @@ from map import Map
 import time
 import os
 from helicopter import Helicopter
+from clouds import Clouds
 
 TICK_SLEEP = 0.005
 TICK_TREE = 500
 TICK_FIRE = 500
+TICK_CLOUDS = 250
 MAP_W, MAP_H = 20, 10
 MOVES = {'w':(-1,0),'a':(0,-1),'s':(1,0), 'd': (0,1)}
 
-tmp=Map(MAP_W, MAP_H)
-tmp.generate_forest(5,10)
-tmp.generate_river(20)
-tmp.generate_river(10)
+field=Map(MAP_W, MAP_H)
+
+clouds=Clouds(MAP_W, MAP_H)
 
 helico = Helicopter(MAP_W, MAP_H)
 
@@ -36,13 +37,17 @@ listener.start()
 tick = 1
 while True:
     os.system('cls')
-    print("TICK", tick)
-    tmp.print_map(helico)
+    helico.stats_menu()
+    field.process_helicopter(helico, clouds)
+    field.print_map(helico, clouds)
     tick += 1
     if (tick % TICK_TREE == 0):
-        tmp.generate_tree()
+        field.generate_tree()
     if (tick % TICK_FIRE == 0):
-        tmp.update_fire()
+        field.update_fire()
+    if (tick % TICK_CLOUDS == 0):
+        clouds.update_clouds()
+    print("TICK", tick)
     time.sleep(TICK_SLEEP)
     
 
