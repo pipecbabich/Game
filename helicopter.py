@@ -1,5 +1,5 @@
 from randfile import randcell
-import os
+
 
 class Helicopter():
     def __init__(self, w, h):
