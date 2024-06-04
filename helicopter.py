@@ -1,5 +1,5 @@
 from randfile import randcell
-
+import os
 
 class Helicopter():
     def __init__(self, w, h):
@@ -24,10 +24,22 @@ class Helicopter():
         print('💰', self.score, end = " | ")
         print('❤️ ', int(self.lives))
 
-#helico = Helicopter(20,10)
-#print(helico.hh,helico.hw)
-#helico.moves(0,1)
-#print(helico.hh,helico.hw)
+    def export_data(self):
+        return {'h': self.hh,
+                'w': self.hw,
+                'tank': self.tank,
+                'mtank': self.mtank,
+                'score': self.score,
+                'lives': self.lives}
+        
+    def import_data(self, data):
+        self.hh = data['h'] or 0
+        self.hw = data['w'] or 0
+        self.tank = data['tank'] or 0
+        self.mtank = data['mtank'] or 1
+        self.lives = data['lives'] or 30
+        self.score = data['score'] or 0
+
         
 
         

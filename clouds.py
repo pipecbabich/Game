@@ -1,7 +1,6 @@
 from randfile import randcelltree as randcellclo
 
 
-
 class Clouds():
     def __init__(self, w, h):
         self.w = w
@@ -17,11 +16,13 @@ class Clouds():
                     if randcellclo(gr,mxgr):
                         self.cell[ri][ci]=2
                 else:
-                    self.cell[ri][ci]=0        
+                    self.cell[ri][ci]=0 
+
+    def export_data(self):
+        return {'cell': self.cell}     
+    def import_data(self, data):
+        self.cell = data['cell'] or [[0 for i in range(self.w)] for q in range(self.h)]  
                     
                         
-                    
 
-c = Clouds(20,10)
-c.update_clouds()
-print(c.cell)       
+    

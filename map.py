@@ -1,9 +1,9 @@
 from randfile import randcelltree
 from randfile import randcell
 from randfile import randmoves
+import os
 
-
-CELL_TYPES = "🟩🏥🏬🌲🟦🔥💝"
+CELL_TYPES = "🟩🏥🏬🌲🟦🔥"
 TREE_BONUS = 100
 PRICE_UPGRADE = 500
 PRICE_MED = 1000
@@ -64,12 +64,12 @@ class Map:
         tw, th = tree[0], tree[1]
         if (self.cell[th][tw]==0):
             self.cell[th][tw] = 3
-
     def generate_fires(self):
         fires=randcell(self.w, self.h)
         fw, fh = fires[0],fires[1]
         if self.cell[fh][fw] == 3:
             self.cell[fh][fw] = 5
+    
     def update_fire(self):
         for fi in range(self.h):
             for fq in range(self.w):
@@ -78,7 +78,6 @@ class Map:
                     self.cell[fi][fq] = 0
         for i in range(10):
             self.generate_fires() 
-         
 
     def process_helicopter(self, helico, clouds):
         c = self.cell[helico.hh][helico.hw]
@@ -99,6 +98,13 @@ class Map:
         
         if d == 2:
             helico.lives -= 0.1
+            if helico.lives <= 0 :
+                os.system('cls')
+                s = f"X     YOU SCORE {helico.score}     X"
+                print("X" * len(s))
+                print(s)
+                print("X" * len(s))
+                exit(0)
             
             
     
@@ -115,6 +121,11 @@ class Map:
         else:
             self.generate_med()
 
+    def export_data(self):
+        return {'cells': self.cell}
+
+    def import_data(self, data):
+        self.cell = data['cells'] or [[0 for i in range(self.w)] for q in range(self.h)]
 
 
 
