@@ -16,7 +16,7 @@ class Map:
         self.cell = [[0 for i in range(w)] for q in range(h)]
         self.generate_forest(5,10)
         self.generate_river(20)
-        self.generate_river(10)
+        self.generate_river(20)
         self.generate_shop()
         self.generate_med()
     
@@ -70,12 +70,13 @@ class Map:
         if self.cell[fh][fw] == 3:
             self.cell[fh][fw] = 5
     
-    def update_fire(self):
+    def update_fire(self, helico):
         for fi in range(self.h):
             for fq in range(self.w):
                 cell = self.cell[fi][fq]
                 if cell == 5:
                     self.cell[fi][fq] = 0
+                    helico.score -= 50
         for i in range(10):
             self.generate_fires() 
 

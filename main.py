@@ -54,7 +54,7 @@ while True:
     if (tick % TICK_TREE == 0):
         field.generate_tree()
     if (tick % TICK_FIRE == 0):
-        field.update_fire()
+        field.update_fire(helico)
     if (tick % TICK_CLOUDS == 0):
         clouds.update_clouds()
     print("TICK", tick)
